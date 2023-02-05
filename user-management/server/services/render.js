@@ -1,4 +1,6 @@
 const axios = require("axios")
+const dotenv = require('dotenv')
+dotenv.config({path : "../../config.env"})
 
 
 exports.homeRoutes = (req, res) => {

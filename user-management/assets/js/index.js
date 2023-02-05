@@ -1,3 +1,7 @@
+import dotenv from "dotenv"
+dotenv.config({path : "../../config.env"})
+
+
 $("#add_user").submit(function(event){
     alert("user Created Successfully")
 })
