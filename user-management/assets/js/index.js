@@ -31,7 +31,7 @@ if (window.location.pathname == "/"){
         let id = $(this).attr("data-id")
 
         let request = {
-            "url" : `https://crud-user-management.onrender.com/api/users/${id}`,
+            "url" : `${process.env.API_KEY}/api/users/${id}`,
             "method" : "DELETE"
         }
 

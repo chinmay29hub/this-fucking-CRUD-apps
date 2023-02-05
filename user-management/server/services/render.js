@@ -3,7 +3,7 @@ const axios = require("axios")
 
 exports.homeRoutes = (req, res) => {
     // Make a get request to /api/users
-    axios.get("https://crud-user-management.onrender.com/api/users")
+    axios.get(`${process.env.API_KEY}/api/users`)
         .then(function(response){
             // console.log(response.data)
             res.render("index", {
@@ -20,7 +20,7 @@ exports.add_user = (req, res) => {
 }
 
 exports.update_user = (req,res) => {
-    axios.get("https://crud-user-management.onrender.com/api/users", {
+    axios.get(`${process.env.API_KEY}/api/users`, {
         params : {
             id : req.query.id
         }
