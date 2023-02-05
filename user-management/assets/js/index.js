@@ -15,7 +15,7 @@ $("#update_user").submit(function(event){
     console.log(data)
 
     let request = {
-        "url" : `https://crud-user-management.onrender.com/api/users/${data.id}`,
+        "url" : `${process.env.API_KEY}/api/users/${data.id}`,
         "method" : "PUT",
         "data" : data
     }
