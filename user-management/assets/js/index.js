@@ -1,3 +1,4 @@
+import API_KEY from "../../config.env"
 $("#add_user").submit(function(event){
     alert("user Created Successfully")
 })
@@ -15,7 +16,7 @@ $("#update_user").submit(function(event){
     console.log(data)
 
     let request = {
-        "url" : `https://crud-user-management.onrender.com/api/users/${data.id}`,
+        "url" : `${API_KEY}/api/users/${data.id}`,
         "method" : "PUT",
         "data" : data
     }
@@ -31,7 +32,7 @@ if (window.location.pathname == "/"){
         let id = $(this).attr("data-id")
 
         let request = {
-            "url" : `https://crud-user-management.onrender.com/api/users/${id}`,
+            "url" : `${API_KEY}/api/users/${id}`,
             "method" : "DELETE"
         }
 
