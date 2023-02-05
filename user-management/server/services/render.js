@@ -2,7 +2,6 @@ const axios = require("axios")
 const dotenv = require('dotenv')
 dotenv.config({path : "../../config.env"})
 
-
 exports.homeRoutes = (req, res) => {
     // Make a get request to /api/users
     axios.get(`${process.env.API_KEY}/api/users`)
