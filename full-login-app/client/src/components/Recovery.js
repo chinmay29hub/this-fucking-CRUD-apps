@@ -39,7 +39,7 @@ export default function Recovery() {
                       <div className='input text-center'>
                         <span className='py-4 text-sm text-left text-gray-500'>
                               Enter 6 Digit OTP sent to your Email Address
-                            </span>
+                        </span>
                             <input className={styles.textbox} type="password" placeholder='OTP' />
                       </div>
                           <button className={styles.btn} type='submit'>Sign In!</button>
