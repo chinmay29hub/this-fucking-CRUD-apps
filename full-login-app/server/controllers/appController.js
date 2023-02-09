@@ -2,6 +2,7 @@ import UserModel from "../model/User.model.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import ENV from "../config.js"
+import otpGenerator from "otp-generator"
 
 // middleware for verify user
 
@@ -160,17 +161,71 @@ export async function updateUser(req, res) {
 }
 
 export async function generateOTP(req, res) {
-    res.json("generateOTP Router")
+    // res.json("generateOTP Router")
+    req.app.locals.OTP = await otpGenerator.generate(6, { lowerCaseAlphabets : false, upperCaseAlphabets : false, specialChars : false })
+    res.status(201).send({ code : req.app.locals.OTP })
 }
 
 export async function verifyOTP(req, res) {
-    res.json("verifyOTP Router")
+    // res.json("verifyOTP Router")
+    const { code } = req.query
+    if (parseInt(req.app.locals.OTP) === parseInt(code)) {
+        req.app.locals.OTP = null
+        req.app.locals.resetSession = true
+
+        return res.status(201).send({ msg : "Verify Successfully" })
+    }
+
+    res.status(400).send({ error : "Invalid OTP" })
 }
 
 export async function createResetSession(req, res) {
-    res.json("createResetSession Router")
+    // res.json("createResetSession Router")
+    if (req.app.locals.resetSession) {
+        req.app.locals.resetSession = false //allow access to this only once
+        res.status(201).send({ msg : "Access Granted" })
+    }
+
+    return res.status(404).send({ error : "Session Expired" })
 }
 
-export async function resetPassword(req, res) {
-    res.json("resetPassword Router")
+export async function resetPassword(req,res){
+    try {
+        
+        if(!req.app.locals.resetSession) {
+            return res.status(404).send({ error : "Session expired!" });
+        }
+
+        const { username, password } = req.body;
+
+        try {
+            
+            UserModel.findOne({ username})
+                .then(user => {
+                    bcrypt.hash(password, 10)
+                        .then(hashedPassword => {
+                            UserModel.updateOne({ username : user.username },
+                            { password: hashedPassword}, function(err, data){
+                                if(err) throw err;
+                                req.app.locals.resetSession = false; // reset session
+                                return res.status(201).send({ msg : "Record Updated...!"})
+                            });
+                        })
+                        .catch( e => {
+                            return res.status(500).send({
+                                error : "Enable to hashed password"
+                            })
+                        })
+                })
+                .catch(error => {
+                    return res.status(404).send({ error : "Username not Found"});
+                })
+
+        } catch (error) {
+            return res.status(500).send({ error })
+        }
+
+    } catch (error) {
+        return res.status(401).send({ error })
+    }
 }
