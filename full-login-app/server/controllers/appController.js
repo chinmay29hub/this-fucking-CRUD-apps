@@ -182,8 +182,8 @@ export async function verifyOTP(req, res) {
 export async function createResetSession(req, res) {
     // res.json("createResetSession Router")
     if (req.app.locals.resetSession) {
-        req.app.locals.resetSession = false //allow access to this only once
-        res.status(201).send({ msg : "Access Granted" })
+        // req.app.locals.resetSession = false //allow access to this only once
+        res.status(201).send({ flag : req.app.locals.resetSession })
     }
 
     return res.status(404).send({ error : "Session Expired" })
