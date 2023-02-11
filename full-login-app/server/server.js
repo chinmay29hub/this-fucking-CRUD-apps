@@ -22,7 +22,7 @@ app.disable("x-powered-by")
 
 
 
-const port = 4000
+const port = process.env.PORT || 4000
 
 // http request
 app.get("/", (req, res) => {
