@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
-const Todo = require("./model/Todo")
 
 const app = express()
 
@@ -17,6 +16,9 @@ mongoose.connect(process.env.ATLAS_URI, {
     .then(() => {
         console.log("ATLAS database Connected")
     }).catch(console.error)
+
+const Todo = require("./models/Todo")
+
 
 app.get("/todos", async (req, res) => {
     const todos = await Todo.find()
@@ -40,7 +42,7 @@ app.delete("/todo/delete/:id", async (req, res) => {
     res.json(result)
 })
 
-app.put("/todo/complete/:id", async (req, res) => {
+app.get("/todo/complete/:id", async (req, res) => {
     const todo = await Todo.findById(req.params.id)
 
     todo.complete = !todo.complete
