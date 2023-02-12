@@ -5,9 +5,10 @@ import ENV from "../config.js"
 // https://ethereal.email/create
 
 let nodeConfig = {
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false, // true for 465, false for other ports
+    // host: "smtp.ethereal.email",
+    // port: 587,
+    // secure: false, // true for 465, false for other ports
+    service : "gmail",
     auth: {
         user: ENV.EMAIl, // generated ethereal user
         pass: ENV.PASSWORD, // generated ethereal password
@@ -19,8 +20,8 @@ let transporter = nodemailer.createTransport(nodeConfig)
 let MailGenerator = new Mailgen({
     theme : "default",
     product : {
-        name : "Mailgen",
-        link : "https://mailgen.js"
+        name : "Chinmay Sonawane Login APP",
+        link : "https://chinmay29hub-login-app.netlify.app/"
     }
 })
 
