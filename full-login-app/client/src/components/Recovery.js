@@ -82,6 +82,9 @@ export default function Recovery() {
                     <span className='py-4 text-xl w-2/3 text-center text-gray-500'>
                         Enter OTP to recover password
                     </span>
+                    <span className='py-4 text-xl w-2/3 text-center text-gray-500'>
+                        Open Console For OTP
+                    </span>
                 </div>
                 <form className='py-20' onSubmit={onSubmit}>
                     
