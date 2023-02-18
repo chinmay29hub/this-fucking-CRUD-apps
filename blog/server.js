@@ -29,7 +29,7 @@ app.get("/", async (req, res) => {
     res.render("articles/index", { articles : articles })
 })
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT
 
 app.listen(port, () => {
     console.log("Server Started on 4000")
